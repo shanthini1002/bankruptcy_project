@@ -121,7 +121,7 @@ evaluate_model("Logistic Regression", y_test, lr_pred)
 evaluate_model("SVM", y_test, svm_pred)
 
 # Save the best model (Random Forest in this case)
-joblib.dump(rf_model, 'best_bankruptcy_model.pkl')
+joblib.dump(svm_model, 'best_bankruptcy_model.pkl')
 joblib.dump(scaler, 'scaler.pkl')
 
 # Streamlit UI to get inputs from the user
