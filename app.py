@@ -23,7 +23,7 @@ import joblib
 import streamlit as st
 
 # Load the dataset
-data = pd.read_excel('"C:\Users\veera\Downloads\bankruptcy-prevention (1).xlsx"')
+data = pd.read_excel("C:\Users\veera\Downloads\bankruptcy-prevention (1).xlsx")
 
 # EDA and Visualizations
 st.title("Exploratory Data Analysis and Model Evaluation")
