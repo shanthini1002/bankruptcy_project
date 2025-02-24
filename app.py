@@ -35,11 +35,11 @@ if uploaded_file is not None:
     
     # Display the dataset
     st.write("### Preview of Uploaded Dataset")
-    st.dataframe(df)
+    st.dataframe(data)
 
     # Show basic information
     st.write("### Dataset Info")
-    st.write(df.describe())
+    st.write(data.describe())
 
 # EDA and Visualizations
 st.write("Exploratory Data Analysis and Model Evaluation")
