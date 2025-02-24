@@ -23,7 +23,7 @@ uploaded_file = st.file_uploader("Choose an Excel file", type=["xlsx", "xls"])
 
 if uploaded_file is not None:
     # Read the Excel file with engine="openpyxl"
-    df = pd.read_excel(uploaded_file, engine="openpyxl")
+    data = pd.read_excel(uploaded_file, engine="openpyxl")
     st.dataframe(data)
 
     # Display the dataset
