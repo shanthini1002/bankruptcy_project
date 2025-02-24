@@ -16,22 +16,16 @@ from sklearn.preprocessing import StandardScaler
 import joblib
 import streamlit as st
 
-import requests
-from io import BytesIO
 
-# GitHub Raw URL of the Excel file
-GITHUB_URL = "https://github.com/shanthini1002/bankruptcy_project.git"
+st.title("Upload an Excel File")
 
-@st.cache_data
-def load_excel(url):
-    response = requests.get(url)
-    file = BytesIO(response.content)
-    return pd.read_excel(file, engine="openpyxl")
+uploaded_file = st.file_uploader("Choose an Excel file", type=["xlsx", "xls"])
 
-st.title("Streamlit App with Excel File from GitHub")
+if uploaded_file is not None:
+    # Read the Excel file with engine="openpyxl"
+    df = pd.read_excel(uploaded_file, engine="openpyxl")
+    st.dataframe(data)
 
-df = load_excel(GITHUB_URL)
-    
     # Display the dataset
     st.write("### Preview of Uploaded Dataset")
     st.dataframe(data)
