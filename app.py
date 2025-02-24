@@ -49,7 +49,7 @@ st.write(data.columns)
 st.write("### summary statistics")
 st.write(data.describe())
 st.write("### Checking for missing values")
-st.write(data.isnull().sum()
+st.write(data.isnull().sum())
 
 # Pairplot to visualize relationships between features
 st.write("### Pairplot of Features")
