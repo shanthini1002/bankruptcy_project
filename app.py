@@ -20,7 +20,7 @@ import streamlit as st
 st.title("Upload a Dataset for Analysis")
 
 # File uploader
-uploaded_file = st.file_uploader("bankruptcy-prevention (1).xlsx", type=["xlsx"])
+uploaded_file = st.file_uploader("bankruptcy-prevention (1).xlsx", type=["xlsx","xls"])
 
 if uploaded_file is not None:
     # Read the excel file
