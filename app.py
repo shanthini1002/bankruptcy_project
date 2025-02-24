@@ -55,7 +55,7 @@ st.write(data.isnull().sum())
 st.write("### Pairplot of Features")
 sns.pairplot(data=data[[' industrial_risk ', 'management_risk', ' financial_flexibility',
        '   credibility', '  competitiveness', '  operating_risk ',
-       '       class']],hue='       class')
+       '       class']])
 plt.title('Pairplot of Features')
 st.pyplot()
 
