@@ -20,11 +20,11 @@ import streamlit as st
 st.title("Upload a Dataset for Analysis")
 
 # File uploader
-uploaded_file = st.file_uploader("bankruptcy-prevention (1).xlsx", type=["xlsx"])
+uploaded_file = st.file_uploader("bankruptcy-prevention dataset.csv", type=["csv"])
 
 if uploaded_file is not None:
-    # Read the excel file
-    data = pd.read_excel(uploaded_file,engine="openpyxl")
+    # Read the csv file
+    data = pd.read_csv(uploaded_file)
     
     # Display the dataset
     st.write("### Preview of Uploaded Dataset")
