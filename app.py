@@ -20,7 +20,7 @@ import requests
 from io import BytesIO
 
 # GitHub Raw URL of the Excel file
-GITHUB_URL = ""
+GITHUB_URL = "https://github.com/shanthini1002/bankruptcy_project.git"
 
 @st.cache_data
 def load_excel(url):
