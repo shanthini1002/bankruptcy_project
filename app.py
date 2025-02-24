@@ -23,10 +23,26 @@ import joblib
 import streamlit as st
 
 # Load the dataset
-data = pd.read_excel('C:\Users\veera\Downloads\bankruptcy-prevention (1).xlsx')
+# Streamlit App
+st.title("Upload a Dataset for Analysis")
+
+# File uploader
+uploaded_file = st.file_uploader("bankruptcy-prevention (1).xlsx", type=["xlsx"])
+
+if uploaded_file is not None:
+    # Read the excel file
+    df = pd.read_excel(uploaded_file)
+    
+    # Display the dataset
+    st.write("### Preview of Uploaded Dataset")
+    st.dataframe(df)
+
+    # Show basic information
+    st.write("### Dataset Info")
+    st.write(df.describe())
 
 # EDA and Visualizations
-st.title("Exploratory Data Analysis and Model Evaluation")
+st.write("Exploratory Data Analysis and Model Evaluation")
 
 # Display the data info and first few rows
 st.write("### Data Info")
