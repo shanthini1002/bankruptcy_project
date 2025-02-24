@@ -1,4 +1,4 @@
-pip install openpyxl
+import openpyxl
 
 
 # Import necessary libraries
