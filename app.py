@@ -143,6 +143,34 @@ evaluate_model("SVM", y_test, svm_pred)
 joblib.dump(svm_model, 'best_bankruptcy_model.pkl')
 joblib.dump(scaler, 'scaler.pkl')
 
+# Confusion Matrix visualization for each model
+def plot_confusion_matrix(y_true, y_pred, model_name):
+    cm = confusion_matrix(y_true, y_pred)
+    plt.figure(figsize=(6, 4))
+    sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", xticklabels=['Non-Bankruptcy', 'Bankruptcy'], yticklabels=['Non-Bankruptcy', 'Bankruptcy'])
+    plt.title(f"Confusion Matrix - {model_name}")
+    plt.xlabel('Predicted')
+    plt.ylabel('True')
+    st.pyplot(plt)  
+
+# Display confusion matrices for each model
+st.subheader("Confusion Matrices for Each Model")
+plot_confusion_matrix(y_test, y_pred_rf, "Random Forest")
+plot_confusion_matrix(y_test, y_pred_dt, "Decision Tree")
+plot_confusion_matrix(y_test, y_pred_logreg, "Logistic Regression")
+plot_confusion_matrix(y_test, y_pred_svc, "SVM")
+
+# Bar plot of accuracy for comparison
+model_names = ['Random Forest', 'Decision Tree', 'Logistic Regression', 'SVM']
+accuracies = [accuracy_score(y_test, y_pred_rf), accuracy_score(y_test, y_pred_dt),
+              accuracy_score(y_test, y_pred_logreg), accuracy_score(y_test, y_pred_svc)]
+
+st.subheader("Model Comparison Based on Accuracy")
+plt.figure(figsize=(8, 6))
+sns.barplot(x=model_names, y=accuracies, palette='viridis')
+plt.title('Model Comparison Based on Accuracy')
+plt.ylabel('Accuracy')
+st.pyplot(plt)  
 # Streamlit UI to get inputs from the user
 st.title("Bankruptcy Prediction App")
 st.write("Enter the company attributes to predict bankruptcy likelihood.")
