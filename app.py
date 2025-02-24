@@ -155,15 +155,15 @@ def plot_confusion_matrix(y_true, y_pred, model_name):
 
 # Display confusion matrices for each model
 st.subheader("Confusion Matrices for Each Model")
-plot_confusion_matrix(y_test, y_pred_rf, "Random Forest")
-plot_confusion_matrix(y_test, y_pred_dt, "Decision Tree")
-plot_confusion_matrix(y_test, y_pred_logreg, "Logistic Regression")
-plot_confusion_matrix(y_test, y_pred_svc, "SVM")
+plot_confusion_matrix(y_test, rf_pred, "Random Forest")
+plot_confusion_matrix(y_test, dt_pred, "Decision Tree")
+plot_confusion_matrix(y_test, lr_pred, "Logistic Regression")
+plot_confusion_matrix(y_test, svm_pred, "SVM")
 
 # Bar plot of accuracy for comparison
 model_names = ['Random Forest', 'Decision Tree', 'Logistic Regression', 'SVM']
-accuracies = [accuracy_score(y_test, y_pred_rf), accuracy_score(y_test, y_pred_dt),
-              accuracy_score(y_test, y_pred_logreg), accuracy_score(y_test, y_pred_svc)]
+accuracies = [accuracy_score(y_test, rf_pred), accuracy_score(y_test, dt_pred),
+              accuracy_score(y_test, lr_pred), accuracy_score(y_test, svm_pred)]
 
 st.subheader("Model Comparison Based on Accuracy")
 plt.figure(figsize=(8, 6))
