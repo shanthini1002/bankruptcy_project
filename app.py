@@ -53,7 +53,7 @@ st.write(data.isnull().sum())
 
 # Pairplot to visualize relationships between features
 st.write("### Pairplot of Features")
-sns.pairplot(data.hue='       class')
+sns.pairplot(data,hue='       class')
 plt.title('Pairplot of Features')
 st.pyplot()
 
