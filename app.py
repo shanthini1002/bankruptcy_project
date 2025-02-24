@@ -31,7 +31,7 @@ uploaded_file = st.file_uploader("bankruptcy-prevention (1).xlsx", type=["xlsx"]
 
 if uploaded_file is not None:
     # Read the excel file
-    df = pd.read_excel(uploaded_file)
+    data = pd.read_excel(uploaded_file)
     
     # Display the dataset
     st.write("### Preview of Uploaded Dataset")
