@@ -29,7 +29,7 @@ if section == "Upload & Preview Data":
         st.dataframe(data)
 
 if 'data' in locals():
-    if section == "EDA ":
+    if section == "EDA & Visualization":
         st.title("Exploratory Data Analysis")
         st.write("### Data Info")
         st.write(data.info())
@@ -39,7 +39,7 @@ if 'data' in locals():
         st.write("### Checking for missing values")
         st.write(data.isnull().sum())
         
-     if section == " Visualization":
+     
         # Pairplot visualization
         st.write("### Pairplot of Features")
         plt.figure()
