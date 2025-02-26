@@ -38,7 +38,7 @@ if 'data' in locals():
         
         st.write("### Checking for missing values")
         st.write(data.isnull().sum())
-
+     if section == " Visualization":
         # Pairplot visualization
         st.write("### Pairplot of Features")
         plt.figure()
