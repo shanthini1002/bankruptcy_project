@@ -1,11 +1,10 @@
 import openpyxl
-
-
-# Import necessary libraries
 import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
+import joblib
+import streamlit as st
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.tree import DecisionTreeClassifier
@@ -13,191 +12,117 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from sklearn.preprocessing import StandardScaler
-import joblib
-import streamlit as st
 
+# Sidebar navigation
+st.sidebar.title("Navigation")
+section = st.sidebar.radio("Go to", [
+    "Upload & Preview Data", "EDA & Visualization", "Model Building", "Model Evaluation", "Confusion Matrix", "Prediction App"
+])
 
-st.title("Upload an Excel File")
+if section == "Upload & Preview Data":
+    st.title("Upload an Excel File")
+    uploaded_file = st.file_uploader("Choose an Excel file", type=["xlsx", "xls"])
+    if uploaded_file is not None:
+        data = pd.read_excel(uploaded_file, engine="openpyxl")
+        data.columns = data.columns.str.strip()
+        st.write("### Preview of Uploaded Dataset")
+        st.dataframe(data)
 
-uploaded_file = st.file_uploader("Choose an Excel file", type=["xlsx", "xls"])
+if 'data' in locals():
+    if section == "EDA & Visualization":
+        st.title("Exploratory Data Analysis")
+        st.write("### Data Info")
+        st.write(data.info())
+        st.write("### First 5 rows")
+        st.write(data.head())
+        
+        st.write("### Checking for missing values")
+        st.write(data.isnull().sum())
 
-if uploaded_file is not None:
-    # Read the Excel file with engine="openpyxl"
-    data = pd.read_excel(uploaded_file, engine="openpyxl")
-    st.dataframe(data)
-
-    # Display the dataset
-    st.write("### Preview of Uploaded Dataset")
-    st.dataframe(data)
-
+        # Pairplot visualization
+        st.write("### Pairplot of Features")
+        plt.figure()
+        sns.pairplot(data)
+        st.pyplot()
+        
+        # Heatmap
+        st.write("### Correlation Heatmap")
+        plt.figure(figsize=(10, 8))
+        sns.heatmap(data.corr(), annot=True, cmap='coolwarm', fmt='.2f')
+        st.pyplot()
     
+    if section == "Model Building":
+        st.title("Model Training")
+        
+        X = data.drop(columns=['class'])
+        y = data['class'].replace(['bankruptcy', 'non-bankruptcy'], [0, 1])
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+        
+        scaler = StandardScaler()
+        X_train_scaled = scaler.fit_transform(X_train)
+        X_test_scaled = scaler.transform(X_test)
+        
+        models = {
+            "Random Forest": RandomForestClassifier(random_state=42),
+            "Decision Tree": DecisionTreeClassifier(random_state=42),
+            "Logistic Regression": LogisticRegression(random_state=42),
+            "SVM": SVC(random_state=42)
+        }
+        
+        trained_models = {}
+        for name, model in models.items():
+            model.fit(X_train_scaled, y_train)
+            trained_models[name] = model
+        
+        joblib.dump(trained_models["SVM"], 'best_bankruptcy_model.pkl')
+        joblib.dump(scaler, 'scaler.pkl')
+        st.write("Model training complete!")
     
-# EDA and Visualizations
-st.write("Exploratory Data Analysis and Model Evaluation")
-
-# Display the data info and first few rows
-st.write("### Data Info")
-st.write(data.info())
-st.write("### First 5 rows of the data:")
-st.write(data.head())
-st.write("### Data Types")
-st.write(data.dtypes)
-st.write("### Number of rows & column")
-st.write(data.shape)
-st.write("### Column names")
-st.write(data.columns)
-st.write("### summary statistics")
-st.write(data.describe())
-st.write("### Checking for missing values")
-st.write(data.isnull().sum())
-
-# Pairplot to visualize relationships between features
-st.write("### Pairplot of Features")
-sns.pairplot(data=data[[' industrial_risk ', 'management_risk', ' financial_flexibility',
-       '   credibility', '  competitiveness', '  operating_risk ',
-       '       class']])
-plt.title('Pairplot of Features')
-st.pyplot()
-
-# Visualizing the distribution of individual features
-st.write("### Feature Distributions")
-plt.figure(figsize=(10, 6))
-sns.histplot(data[' industrial_risk '], kde=True, bins=10, color='blue', label='Industrial Risk')
-sns.histplot(data['management_risk'], kde=True, bins=10, color='green', label='Management Risk')
-sns.histplot(data[' financial_flexibility'], kde=True, bins=10, color='red', label='Financial Flexibility')
-sns.histplot(data['   credibility'], kde=True, bins=10, color='purple', label='Credibility')
-sns.histplot(data['  competitiveness'], kde=True, bins=10, color='orange', label='Competitiveness')
-sns.histplot(data[ '  operating_risk '], kde=True, bins=10, color='yellow', label='Operating Risk')
-plt.legend()
-plt.title('Feature Distributions')
-st.pyplot()
-
-# Visualize class distribution (Bankruptcy vs Non-Bankruptcy)
-st.write("### Class Distribution (Bankruptcy vs Non-Bankruptcy)")
-plt.figure(figsize=(6, 4))
-sns.countplot(x='       class', data=data)
-plt.title('Class Distribution (Bankruptcy vs Non-Bankruptcy)')
-st.pyplot()
-
-# Boxplots for feature distribution
-st.write("### Boxplot of Features")
-plt.figure(figsize=(12, 6))
-sns.boxplot(data)
-plt.title('Boxplot of Features')
-st.pyplot()
-
-# Heatmap of correlation between features
-st.write("### Correlation Heatmap")
-st.write(data['       class'].replace(['bankruptcy','non-bankruptcy'],[0,1],inplace=True))
-plt.figure(figsize=(10, 8))
-sns.heatmap(data.corr(), annot=True, cmap='coolwarm', fmt='.2f', linewidths=1)
-plt.title('Correlation Heatmap')
-st.pyplot()
-
-# Data Preprocessing (Split Data and Scale Features)
-X = data.drop(columns=['       class'])  # Features
-y = data['       class']  # Target variable
-
-# Split the data into training and testing sets (80% training, 20% testing)
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-# Scaling the features
-scaler = StandardScaler()
-X_train_scaled = scaler.fit_transform(X_train)
-X_test_scaled = scaler.transform(X_test)
-
-# Initialize models
-rf_model = RandomForestClassifier(random_state=42)
-dt_model = DecisionTreeClassifier(random_state=42)
-lr_model = LogisticRegression(random_state=42)
-svm_model = SVC(random_state=42)
-
-# Training the models
-rf_model.fit(X_train_scaled, y_train)
-dt_model.fit(X_train_scaled, y_train)
-lr_model.fit(X_train_scaled, y_train)
-svm_model.fit(X_train_scaled, y_train)
-
-# Predictions
-rf_pred = rf_model.predict(X_test_scaled)
-dt_pred = dt_model.predict(X_test_scaled)
-lr_pred = lr_model.predict(X_test_scaled)
-svm_pred = svm_model.predict(X_test_scaled)
-
-# Evaluating models
-def evaluate_model(model_name, y_true, y_pred):
-    st.write(f"### {model_name} Model Evaluation")
-    st.write(f"**Accuracy:** {accuracy_score(y_true, y_pred):.4f}")
-    st.write("**Classification Report:**")
-    st.text(classification_report(y_true, y_pred))
-    st.write("**Confusion Matrix:**")
-    st.text(confusion_matrix(y_true, y_pred))
-
-# Evaluate each model
-evaluate_model("Random Forest", y_test, rf_pred)
-evaluate_model("Decision Tree", y_test, dt_pred)
-evaluate_model("Logistic Regression", y_test, lr_pred)
-evaluate_model("SVM", y_test, svm_pred)
-
-# Save the best model (SVM in this case)
-joblib.dump(svm_model, 'best_bankruptcy_model.pkl')
-joblib.dump(scaler, 'scaler.pkl')
-
-# Confusion Matrix visualization for each model
-def plot_confusion_matrix(y_true, y_pred, model_name):
-    cm = confusion_matrix(y_true, y_pred)
-    plt.figure(figsize=(6, 4))
-    sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", xticklabels=['Non-Bankruptcy', 'Bankruptcy'], yticklabels=['Non-Bankruptcy', 'Bankruptcy'])
-    plt.title(f"Confusion Matrix - {model_name}")
-    plt.xlabel('Predicted')
-    plt.ylabel('True')
-    st.pyplot(plt)  
-
-# Display confusion matrices for each model
-st.subheader("Confusion Matrices for Each Model")
-plot_confusion_matrix(y_test, rf_pred, "Random Forest")
-plot_confusion_matrix(y_test, dt_pred, "Decision Tree")
-plot_confusion_matrix(y_test, lr_pred, "Logistic Regression")
-plot_confusion_matrix(y_test, svm_pred, "SVM")
-
-# Bar plot of accuracy for comparison
-model_names = ['Random Forest', 'Decision Tree', 'Logistic Regression', 'SVM']
-accuracies = [accuracy_score(y_test, rf_pred), accuracy_score(y_test, dt_pred),
-              accuracy_score(y_test, lr_pred), accuracy_score(y_test, svm_pred)]
-
-st.subheader("Model Comparison Based on Accuracy")
-plt.figure(figsize=(8, 6))
-sns.barplot(x=model_names, y=accuracies, palette='viridis')
-plt.title('Model Comparison Based on Accuracy')
-plt.ylabel('Accuracy')
-st.pyplot(plt)  
-# Streamlit UI to get inputs from the user
-st.title("Bankruptcy Prediction App")
-st.write("Enter the company attributes to predict bankruptcy likelihood.")
-
-# Input features (drop-down for categorical values)
-industrial_risk = st.selectbox("Industrial Risk", [0, 0.5, 1])
-management_risk = st.selectbox("Management Risk", [0, 0.5, 1])
-financial_flexibility = st.selectbox("Financial Flexibility", [0, 0.5, 1])
-credibility = st.selectbox("Credibility", [0, 0.5, 1])
-competitiveness = st.selectbox("Competitiveness", [0, 0.5, 1])
-operating_risk = st.selectbox("Operating Risk", [0, 0.5, 1])
-
-# Combine the input values into a feature vector
-features = np.array([industrial_risk, management_risk, financial_flexibility,
-                     credibility, competitiveness, operating_risk]).reshape(1, -1)
-
-# Scale the features using the scaler
-features_scaled = scaler.transform(features)
-
-# Load the saved model
-model = joblib.load('best_bankruptcy_model.pkl')
-
-# Predict using the trained model
-prediction = model.predict(features_scaled)
-
-# Show the prediction result
-if prediction == 0:
-    st.write("The company is **not likely to go bankrupt**.")
-else:
-    st.write("The company is **likely to go bankrupt**.")
+    if section == "Model Evaluation":
+        st.title("Model Evaluation")
+        
+        def evaluate_model(model_name, model):
+            y_pred = model.predict(X_test_scaled)
+            st.write(f"### {model_name} Model")
+            st.write(f"Accuracy: {accuracy_score(y_test, y_pred):.4f}")
+            st.write("Classification Report:")
+            st.text(classification_report(y_test, y_pred))
+        
+        for name, model in trained_models.items():
+            evaluate_model(name, model)
+    
+    if section == "Confusion Matrix":
+        st.title("Confusion Matrix")
+        
+        def plot_confusion_matrix(y_true, y_pred, title):
+            cm = confusion_matrix(y_true, y_pred)
+            plt.figure(figsize=(6, 4))
+            sns.heatmap(cm, annot=True, cmap='Blues', fmt='d', xticklabels=['Non-Bankruptcy', 'Bankruptcy'], yticklabels=['Non-Bankruptcy', 'Bankruptcy'])
+            plt.title(f"{title} Confusion Matrix")
+            plt.xlabel("Predicted")
+            plt.ylabel("Actual")
+            st.pyplot()
+        
+        for name, model in trained_models.items():
+            y_pred = model.predict(X_test_scaled)
+            plot_confusion_matrix(y_test, y_pred, name)
+    
+    if section == "Prediction App":
+        st.title("Bankruptcy Prediction App")
+        
+        model = joblib.load('best_bankruptcy_model.pkl')
+        scaler = joblib.load('scaler.pkl')
+        
+        industrial_risk = st.selectbox("Industrial Risk", [0, 0.5, 1])
+        management_risk = st.selectbox("Management Risk", [0, 0.5, 1])
+        financial_flexibility = st.selectbox("Financial Flexibility", [0, 0.5, 1])
+        credibility = st.selectbox("Credibility", [0, 0.5, 1])
+        competitiveness = st.selectbox("Competitiveness", [0, 0.5, 1])
+        operating_risk = st.selectbox("Operating Risk", [0, 0.5, 1])
+        
+        input_features = np.array([industrial_risk, management_risk, financial_flexibility, credibility, competitiveness, operating_risk]).reshape(1, -1)
+        input_features_scaled = scaler.transform(input_features)
+        
+        prediction = model.predict(input_features_scaled)
+        result = "likely to go bankrupt" if prediction == 0 else "not likely to go bankrupt"
+        st.write(f"The company is **{result}**.")
