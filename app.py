@@ -49,6 +49,7 @@ if section == "EDA & Visualization":
         
         # Heatmap
         st.write("### Correlation Heatmap")
+        data = data['class'].replace(['bankruptcy', 'non-bankruptcy'], [0, 1])
         plt.figure(figsize=(10, 8))
         sns.heatmap(data.corr(), annot=True, cmap='coolwarm', fmt='.2f')
         st.pyplot()
@@ -57,7 +58,7 @@ if section == "Model Building":
         st.title("Model Training")
         
         X = data.drop(columns=['class'])
-        y = data['class'].replace(['bankruptcy', 'non-bankruptcy'], [0, 1])
+        y = data['class']
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
         
         scaler = StandardScaler()
