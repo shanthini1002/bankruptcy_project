@@ -27,9 +27,11 @@ if section == "Upload & Preview Data":
         data.columns = data.columns.str.strip()
         st.write("### Preview of Uploaded Dataset")
         st.dataframe(data)
-        st.write(data) 
+      
 
     if section == "EDA & Visualization":
+        st.write("click")
+        st.write(data) 
         st.title("Exploratory Data Analysis")
         st.write("### Data Info")
         st.write(data.info())
