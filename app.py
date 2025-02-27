@@ -18,7 +18,7 @@ st.sidebar.title("Navigation")
 section = st.sidebar.radio("Go to", [
     "Upload & Preview Data", "EDA & Visualization", "Model Building", "Model Evaluation", "Confusion Matrix", "Prediction App"
 ])
-
+data; 
 if section == "Upload & Preview Data":
     st.title("Upload an Excel File")
     uploaded_file = st.file_uploader("Choose an Excel file", type=["xlsx", "xls"])
