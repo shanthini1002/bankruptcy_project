@@ -53,9 +53,8 @@ if section == "EDA & Visualization":
         sns.histplot(data['   credibility'], kde=True, bins=10, color='purple', label='Credibility')
         sns.histplot(data['  competitiveness'], kde=True, bins=10, color='orange', label='Competitiveness')
         sns.histplot(data['  operating_risk '], kde=True, bins=10, color='yellow', label='Operating Risk')
-       plt.legend()
-       plt.title('Feature Distributions')
-       st.pyplot()
+        st.title('Feature Distributions')
+        st.pyplot()
 
 # Boxplots for feature distribution
       st.write("### Boxplot of Features")
