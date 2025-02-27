@@ -40,7 +40,7 @@ if section == "EDA & Visualization":
         # Visualize class distribution (Bankruptcy vs Non-Bankruptcy)
         st.write("### Class Distribution (Bankruptcy vs Non-Bankruptcy)")
         plt.figure(figsize=(6, 4))
-        sns.countplot(x='       class', data=data)
+        sns.histplot(x='       class', data=data)
         plt.title('Class Distribution (Bankruptcy vs Non-Bankruptcy)')
         st.pyplot()
 
