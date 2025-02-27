@@ -29,18 +29,41 @@ if section == "Preview Data":
       
 
 if section == "EDA & Visualization":
-        st.write("click")
-        st.write(data) 
         st.title("Exploratory Data Analysis")
         st.write("### Data Info")
         st.write(data.info())
         st.write("### First 5 rows")
         st.write(data.head())
-        
         st.write("### Checking for missing values")
         st.write(data.isnull().sum())
         
-     
+        # Visualize class distribution (Bankruptcy vs Non-Bankruptcy)
+        st.write("### Class Distribution (Bankruptcy vs Non-Bankruptcy)")
+        plt.figure(figsize=(6, 4))
+        sns.countplot(x='       class', data=data)
+        plt.title('Class Distribution (Bankruptcy vs Non-Bankruptcy)')
+        st.pyplot()
+
+# Visualizing the distribution of individual features
+        st.write("### Feature Distributions")
+        plt.figure(figsize=(10, 6))
+        sns.histplot(data[' industrial_risk '], kde=True, bins=10, color='green', label='Industrial Risk')
+        sns.histplot(data['management_risk'], kde=True, bins=10, color='green', label='Management Risk')
+        sns.histplot(data[' financial_flexibility'], kde=True, bins=10, color='red', label='Financial Flexibility')
+        sns.histplot(data['   credibility'], kde=True, bins=10, color='purple', label='Credibility')
+        sns.histplot(data['  competitiveness'], kde=True, bins=10, color='orange', label='Competitiveness')
+        sns.histplot(data['  operating_risk '], kde=True, bins=10, color='yellow', label='Operating Risk')
+       plt.legend()
+       plt.title('Feature Distributions')
+       st.pyplot()
+
+# Boxplots for feature distribution
+      st.write("### Boxplot of Features")
+      plt.figure(figsize=(12, 6))
+      sns.boxplot(data=data[[' industrial_risk ', 'management_risk', ' financial_flexibility',
+                        '   credibility', '  competitiveness', '  operating_risk ']])
+      plt.title('Boxplot of Features')
+      st.pyplot() 
         # Pairplot visualization
         st.write("### Pairplot of Features")
         plt.figure()
@@ -49,7 +72,6 @@ if section == "EDA & Visualization":
         
         # Heatmap
         st.write("### Correlation Heatmap")
-        data = data['       class'].replace(['bankruptcy', 'non-bankruptcy'], [0, 1],inplace=True)
         plt.figure(figsize=(10, 8))
         sns.heatmap(data.corr(), annot=True, cmap='coolwarm', fmt='.2f')
         st.pyplot()
