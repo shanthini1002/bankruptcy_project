@@ -28,7 +28,7 @@ if section == "Upload & Preview Data":
         st.write("### Preview of Uploaded Dataset")
         st.dataframe(data)
 
-if 'data' in locals():
+
     if section == "EDA & Visualization":
         st.title("Exploratory Data Analysis")
         st.write("### Data Info")
