@@ -49,7 +49,7 @@ if section == "EDA & Visualization":
         
         # Heatmap
         st.write("### Correlation Heatmap")
-        data = data['       class'].replace(['bankruptcy', 'non-bankruptcy'], [0, 1])
+        data = data['       class'].replace(['bankruptcy', 'non-bankruptcy'], [0, 1],inplace=True)
         plt.figure(figsize=(10, 8))
         sns.heatmap(data.corr(), annot=True, cmap='coolwarm', fmt='.2f')
         st.pyplot()
