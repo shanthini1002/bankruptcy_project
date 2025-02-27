@@ -12,19 +12,18 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from sklearn.preprocessing import StandardScaler
-data='';
+
 # Sidebar navigation
 st.sidebar.title("Navigation")
 section = st.sidebar.radio("Go to", [
-    "Upload & Preview Data", "EDA & Visualization", "Model Building", "Model Evaluation", "Confusion Matrix", "Prediction App"
+    "Preview Data", "EDA & Visualization", "Model Building", "Model Evaluation", "Confusion Matrix", "Prediction App"
 ])
- 
-if section == "Upload & Preview Data":
-    st.title("Upload an Excel File")
-    uploaded_file = st.file_uploader("Choose an Excel file", type=["xlsx", "xls"])
-    if uploaded_file is not None:
-        data = pd.read_excel(uploaded_file, engine="openpyxl")
-        data.columns = data.columns.str.strip()
+st.title("Upload an Excel File")
+uploaded_file = st.file_uploader("Choose an Excel file", type=["xlsx", "xls"])
+if uploaded_file is not None:
+    data = pd.read_excel(uploaded_file, engine="openpyxl")
+    data.columns = data.columns.str.strip() 
+if section == "Preview Data":
         st.write("### Preview of Uploaded Dataset")
         st.dataframe(data)
       
