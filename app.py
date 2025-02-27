@@ -29,7 +29,7 @@ if section == "Upload & Preview Data":
         st.dataframe(data)
       
 
-    if section == "EDA & Visualization":
+if section == "EDA & Visualization":
         st.write("click")
         st.write(data) 
         st.title("Exploratory Data Analysis")
@@ -54,7 +54,7 @@ if section == "Upload & Preview Data":
         sns.heatmap(data.corr(), annot=True, cmap='coolwarm', fmt='.2f')
         st.pyplot()
     
-    if section == "Model Building":
+if section == "Model Building":
         st.title("Model Training")
         
         X = data.drop(columns=['class'])
@@ -81,7 +81,7 @@ if section == "Upload & Preview Data":
         joblib.dump(scaler, 'scaler.pkl')
         st.write("Model training complete!")
     
-    if section == "Model Evaluation":
+if section == "Model Evaluation":
         st.title("Model Evaluation")
         
         def evaluate_model(model_name, model):
@@ -94,7 +94,7 @@ if section == "Upload & Preview Data":
         for name, model in trained_models.items():
             evaluate_model(name, model)
     
-    if section == "Confusion Matrix":
+if section == "Confusion Matrix":
         st.title("Confusion Matrix")
         
         def plot_confusion_matrix(y_true, y_pred, title):
@@ -110,7 +110,7 @@ if section == "Upload & Preview Data":
             y_pred = model.predict(X_test_scaled)
             plot_confusion_matrix(y_test, y_pred, name)
     
-    if section == "Prediction App":
+if section == "Prediction App":
         st.title("Bankruptcy Prediction App")
         
         model = joblib.load('best_bankruptcy_model.pkl')
