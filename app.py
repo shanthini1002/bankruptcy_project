@@ -27,7 +27,7 @@ if section == "Upload & Preview Data":
         data.columns = data.columns.str.strip()
         st.write("### Preview of Uploaded Dataset")
         st.dataframe(data)
-        print(data)
+        st.write(data) 
 
     if section == "EDA & Visualization":
         st.title("Exploratory Data Analysis")
