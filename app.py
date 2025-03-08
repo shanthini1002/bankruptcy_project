@@ -40,27 +40,27 @@ if section == "EDA & Visualization":
         # Visualize class distribution (Bankruptcy vs Non-Bankruptcy)
         st.write("### Class Distribution (Bankruptcy vs Non-Bankruptcy)")
         plt.figure(figsize=(6, 4))
-        sns.histplot(x='       class', data=data)
+        sns.histplot(x='class', data=data)
         plt.title('Class Distribution (Bankruptcy vs Non-Bankruptcy)')
         st.pyplot()
 
 # Visualizing the distribution of individual features
         st.write("### Feature Distributions")
         plt.figure(figsize=(10, 6))
-        sns.histplot(data[' industrial_risk '], kde=True, bins=10, color='green', label='Industrial Risk')
+        sns.histplot(data['industrial_risk'], kde=True, bins=10, color='green', label='Industrial Risk')
         sns.histplot(data['management_risk'], kde=True, bins=10, color='green', label='Management Risk')
-        sns.histplot(data[' financial_flexibility'], kde=True, bins=10, color='red', label='Financial Flexibility')
-        sns.histplot(data['   credibility'], kde=True, bins=10, color='purple', label='Credibility')
-        sns.histplot(data['  competitiveness'], kde=True, bins=10, color='orange', label='Competitiveness')
-        sns.histplot(data['  operating_risk '], kde=True, bins=10, color='yellow', label='Operating Risk')
+        sns.histplot(data['financial_flexibility'], kde=True, bins=10, color='red', label='Financial Flexibility')
+        sns.histplot(data['credibility'], kde=True, bins=10, color='purple', label='Credibility')
+        sns.histplot(data['competitiveness'], kde=True, bins=10, color='orange', label='Competitiveness')
+        sns.histplot(data['operating_risk '], kde=True, bins=10, color='yellow', label='Operating Risk')
         plt.title('Feature Distributions')
         st.pyplot()
 
 # Boxplots for feature distribution
         st.write("### Boxplot of Features")
         plt.figure(figsize=(12, 6))
-        sns.boxplot(data=data[[' industrial_risk ', 'management_risk', ' financial_flexibility',
-                        '   credibility', '  competitiveness', '  operating_risk ']])
+        sns.boxplot(data=data[['industrial_risk', 'management_risk', 'financial_flexibility',
+                        'credibility', 'competitiveness', 'operating_risk ']])
         plt.title('Boxplot of Features')
         st.pyplot() 
         # Pairplot visualization
@@ -78,8 +78,8 @@ if section == "EDA & Visualization":
 if section == "Model Building":
         st.title("Model Training")
         
-        X = data.drop(columns=['       class'])
-        y = data['       class']
+        X = data.drop(columns=['class'])
+        y = data['class']
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
         
         scaler = StandardScaler()
