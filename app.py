@@ -114,12 +114,12 @@ if section == "Model Evaluation":
         st.title("Model Evaluation")
         
         def evaluate_model(model_name, y_true, y_pred):
-        st.write(f"### {model_name} Model Evaluation")
-        st.write(f"**Accuracy:** {accuracy_score(y_true, y_pred):.4f}")
-        st.write("**Classification Report:**")
-        st.text(classification_report(y_true, y_pred))
-        st.write("**Confusion Matrix:**")
-        st.text(confusion_matrix(y_true, y_pred))
+           st.write(f"### {model_name} Model Evaluation")
+           st.write(f"**Accuracy:** {accuracy_score(y_true, y_pred):.4f}")
+           st.write("**Classification Report:**")
+           st.text(classification_report(y_true, y_pred))
+           st.write("**Confusion Matrix:**")
+           st.text(confusion_matrix(y_true, y_pred))
 
 # Evaluate each model
         evaluate_model("Random Forest", y_test, rf_pred)
