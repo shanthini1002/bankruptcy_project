@@ -52,7 +52,7 @@ if section == "EDA & Visualization":
         sns.histplot(data['financial_flexibility'], kde=True, bins=10, color='red', label='Financial Flexibility')
         sns.histplot(data['credibility'], kde=True, bins=10, color='purple', label='Credibility')
         sns.histplot(data['competitiveness'], kde=True, bins=10, color='orange', label='Competitiveness')
-        sns.histplot(data['operating_risk '], kde=True, bins=10, color='yellow', label='Operating Risk')
+        sns.histplot(data['operating_risk'], kde=True, bins=10, color='yellow', label='Operating Risk')
         plt.title('Feature Distributions')
         st.pyplot()
 
@@ -60,7 +60,7 @@ if section == "EDA & Visualization":
         st.write("### Boxplot of Features")
         plt.figure(figsize=(12, 6))
         sns.boxplot(data=data[['industrial_risk', 'management_risk', 'financial_flexibility',
-                        'credibility', 'competitiveness', 'operating_risk ']])
+                        'credibility', 'competitiveness', 'operating_risk']])
         plt.title('Boxplot of Features')
         st.pyplot() 
         # Pairplot visualization
