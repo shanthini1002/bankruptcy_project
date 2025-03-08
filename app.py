@@ -103,10 +103,10 @@ if section == "Model Building":
         svm_model.fit(X_train_scaled, y_train)
 
 # Predictions
-       rf_pred = rf_model.predict(X_test_scaled)
-       dt_pred = dt_model.predict(X_test_scaled)
-       lr_pred = lr_model.predict(X_test_scaled)
-       svm_pred = svm_model.predict(X_test_scaled)
+        rf_pred = rf_model.predict(X_test_scaled)
+        dt_pred = dt_model.predict(X_test_scaled)
+        lr_pred = lr_model.predict(X_test_scaled)
+        svm_pred = svm_model.predict(X_test_scaled)
 
         st.write("Model training complete!")
     
