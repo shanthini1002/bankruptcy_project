@@ -133,17 +133,17 @@ if section == "Model Evaluation":
 
     
 if section == "Confusion Matrix":
-        cm = confusion_matrix(y_test, y_pred)
-        st.write("**Confusion Matrix:**")
-        st.text(cm)
+           cm = confusion_matrix(y_test, y_pred)
+           st.write("**Confusion Matrix:**")
+           st.text(cm)
     
     # Visualize confusion matrix
-        fig, ax = plt.subplots(figsize=(6, 5))
-        sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=['Non-Bankruptcy', 'Bankruptcy'], yticklabels=['Non-Bankruptcy', 'Bankruptcy'])
-        plt.xlabel('Predicted')
-        plt.ylabel('True')
-        plt.title(f'Confusion Matrix for {model_name}')
-        st.pyplot(fig)
+           fig, ax = plt.subplots(figsize=(6, 5))
+           sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=['Non-Bankruptcy', 'Bankruptcy'], yticklabels=['Non-Bankruptcy', 'Bankruptcy'])
+           plt.xlabel('Predicted')
+           plt.ylabel('True')
+           plt.title(f'Confusion Matrix for {model_name}')
+           st.pyplot(fig)
 if section == "Prediction App":
         st.title("Bankruptcy Prediction App")
         
