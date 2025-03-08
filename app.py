@@ -127,8 +127,8 @@ if section == "Model Evaluation":
         evaluate_model("SVM", y_test, svm_pred)
 
     # Save the best model (Random Forest in this case)
-       joblib.dump(rf_model, 'best_bankruptcy_model.pkl')
-       joblib.dump(scaler, 'scaler.pkl')
+        joblib.dump(rf_model, 'best_bankruptcy_model.pkl')
+        joblib.dump(scaler, 'scaler.pkl')
 
 if section == "Confusion Matrix":
     st.title("Confusion Matrix")
