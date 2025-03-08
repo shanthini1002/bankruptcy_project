@@ -79,42 +79,58 @@ if section == "EDA & Visualization":
 if section == "Model Building":
         st.title("Model Training")
         
-        X = data.drop(columns=['class'])
-        y = data['class']
+        X = data.drop(columns=['class'])  # Features
+        y = data['class']  # Target variable
+
+# Split the data into training and testing sets (80% training, 20% testing)
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-        
-        scaler = StandardScaler()
-        X_train_scaled = scaler.fit_transform(X_train)
-        X_test_scaled = scaler.transform(X_test)
-        
-        models = {
-            "Random Forest": RandomForestClassifier(random_state=42),
-            "Decision Tree": DecisionTreeClassifier(random_state=42),
-            "Logistic Regression": LogisticRegression(random_state=42),
-            "SVM": SVC(random_state=42)
-        }
-        
-        trained_models = {}
-        for name, model in models.items():
-            model.fit(X_train_scaled, y_train)
-            trained_models[name] = model
-        
-        joblib.dump(trained_models["SVM"], 'best_bankruptcy_model.pkl')
-        joblib.dump(scaler, 'scaler.pkl')
+
+# Scaling the features
+       scaler = StandardScaler()
+       X_train_scaled = scaler.fit_transform(X_train)
+       X_test_scaled = scaler.transform(X_test)
+
+# Initialize models
+       rf_model = RandomForestClassifier(random_state=42)
+       dt_model = DecisionTreeClassifier(random_state=42)
+       lr_model = LogisticRegression(random_state=42)
+       svm_model = SVC(random_state=42)
+
+# Training the models
+       rf_model.fit(X_train_scaled, y_train)
+       dt_model.fit(X_train_scaled, y_train)
+       lr_model.fit(X_train_scaled, y_train)
+       svm_model.fit(X_train_scaled, y_train)
+
+# Predictions
+      rf_pred = rf_model.predict(X_test_scaled)
+      dt_pred = dt_model.predict(X_test_scaled)
+      lr_pred = lr_model.predict(X_test_scaled)
+      svm_pred = svm_model.predict(X_test_scaled)
+
         st.write("Model training complete!")
     
 if section == "Model Evaluation":
         st.title("Model Evaluation")
         
-        def evaluate_model(model_name, model):
-            y_pred = model.predict(X_test_scaled)
-            st.write(f"### {model_name} Model")
-            st.write(f"Accuracy: {accuracy_score(y_test, y_pred):.4f}")
-            st.write("Classification Report:")
-            st.text(classification_report(y_test, y_pred))
-        
-        for name, model in trained_models.items():
-            evaluate_model(name, model)
+        def evaluate_model(model_name, y_true, y_pred):
+        st.write(f"### {model_name} Model Evaluation")
+        st.write(f"**Accuracy:** {accuracy_score(y_true, y_pred):.4f}")
+        st.write("**Classification Report:**")
+        st.text(classification_report(y_true, y_pred))
+        st.write("**Confusion Matrix:**")
+        st.text(confusion_matrix(y_true, y_pred))
+
+# Evaluate each model
+        evaluate_model("Random Forest", y_test, rf_pred)
+        evaluate_model("Decision Tree", y_test, dt_pred)
+        evaluate_model("Logistic Regression", y_test, lr_pred)
+        evaluate_model("SVM", y_test, svm_pred)
+
+# Save the best model (Random Forest in this case)
+        joblib.dump(rf_model, 'best_bankruptcy_model.pkl')
+        joblib.dump(scaler, 'scaler.pkl')
+
     
 if section == "Confusion Matrix":
         st.title("Confusion Matrix")
