@@ -133,7 +133,7 @@ if section == "Model Evaluation":
 
     
 if section == "Confusion Matrix":
-        cm = confusion_matrix(y_true, y_pred)
+        cm = confusion_matrix(y_test, y_pred)
         st.write("**Confusion Matrix:**")
         st.text(cm)
     
