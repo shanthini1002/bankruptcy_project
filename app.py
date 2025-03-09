@@ -79,7 +79,7 @@ if section == "EDA & Visualization":
     st.pyplot()
 
 if section == "Model Building":
-    st.title("Model Training")
+    st.title("Model Building")
     X = data.drop(columns=['class'])  # Features
     y = data['class']  # Target variable
 
