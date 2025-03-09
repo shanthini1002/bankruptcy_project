@@ -115,7 +115,7 @@ if section == "Model Evaluation":
     st.title("Model Evaluation")
 
    def evaluate_model(model_name, y_test, y_pred):
-       st.write(f"### {model_name} Model Evaluation")
+        st.write(f"### {model_name} Model Evaluation")
         
         # Display accuracy
        st.write(f"**Accuracy:** {accuracy_score(y_test, y_pred):.4f}")
