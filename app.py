@@ -102,6 +102,13 @@ if section == "Model Building":
     dt_model.fit(X_train_scaled, y_train)
     lr_model.fit(X_train_scaled, y_train)
     svm_model.fit(X_train_scaled, y_train)
+    # Predictions
+    rf_pred = rf_model.predict(X_test_scaled)
+    dt_pred = dt_model.predict(X_test_scaled)
+    lr_pred = lr_model.predict(X_test_scaled)
+    svm_pred = svm_model.predict(X_test_scaled)
+
+        
 
     
     st.write("Model training complete!")
@@ -111,32 +118,22 @@ if section == "Model Evaluation":
 
     # Define the function to evaluate the models
     def evaluate_model(model_name, y_test, y_pred):
-        st.write(f"### {model_name} Model Evaluation")
-        
-        # Display accuracy
-        st.write(f"**Accuracy:** {accuracy_score(y_test, y_pred):.4f}")
-        
-        # Classification report
-        st.write("**Classification Report:**")
-        st.text(classification_report(y_test, y_pred))
+       st.write(f"### {model_name} Model Evaluation")
+       st.write(f"**Accuracy:** {accuracy_score(y_test, y_pred):.4f}")
+       st.write("**Classification Report:**")
+       st.text(classification_report(y_test, y_pred))
 
-    # Predictions
-    rf_pred = rf_model.predict(X_test_scaled)
-    dt_pred = dt_model.predict(X_test_scaled)
-    lr_pred = lr_model.predict(X_test_scaled)
-    svm_pred = svm_model.predict(X_test_scaled)
-
-        
+    
 
     # Ensure that the predictions are available for each model
-    evaluate_model("Random Forest", y_test, rf_pred)
-    evaluate_model("Decision Tree", y_test, dt_pred)
-    evaluate_model("Logistic Regression", y_test, lr_pred)
-    evaluate_model("SVM", y_test, svm_pred)
+       evaluate_model("Random Forest", y_test, rf_pred)
+       evaluate_model("Decision Tree", y_test, dt_pred)
+       evaluate_model("Logistic Regression", y_test, lr_pred)
+       evaluate_model("SVM", y_test, svm_pred)
 
     # Save the best model (Random Forest in this case)
-    joblib.dump(rf_model, 'best_bankruptcy_model.pkl')
-    joblib.dump(scaler, 'scaler.pkl')
+       joblib.dump(rf_model, 'best_bankruptcy_model.pkl')
+       joblib.dump(scaler, 'scaler.pkl')
 
 
 if section == "Confusion Matrix":
