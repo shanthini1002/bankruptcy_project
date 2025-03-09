@@ -103,12 +103,7 @@ if section == "Model Building":
     lr_model.fit(X_train_scaled, y_train)
     svm_model.fit(X_train_scaled, y_train)
 
-    # Predictions
-    rf_pred = rf_model.predict(X_test_scaled)
-    dt_pred = dt_model.predict(X_test_scaled)
-    lr_pred = lr_model.predict(X_test_scaled)
-    svm_pred = svm_model.predict(X_test_scaled)
-
+    
     st.write("Model training complete!")
 
 if section == "Model Evaluation":
@@ -124,7 +119,13 @@ if section == "Model Evaluation":
         # Classification report
         st.write("**Classification Report:**")
         st.text(classification_report(y_test, y_pred))
-        
+
+    # Predictions
+    rf_pred = rf_model.predict(X_test_scaled)
+    dt_pred = dt_model.predict(X_test_scaled)
+    lr_pred = lr_model.predict(X_test_scaled)
+    svm_pred = svm_model.predict(X_test_scaled)
+
         
 
     # Ensure that the predictions are available for each model
