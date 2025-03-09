@@ -114,13 +114,15 @@ if section == "Model Building":
 if section == "Model Evaluation":
     st.title("Model Evaluation")
 
-    def evaluate_model(model_name, y_test, y_pred):
+   def evaluate_model(model_name, y_test, y_pred):
         st.write(f"### {model_name} Model Evaluation")
+        
+        # Display accuracy
         st.write(f"**Accuracy:** {accuracy_score(y_test, y_pred):.4f}")
+        
+        # Classification report
         st.write("**Classification Report:**")
         st.text(classification_report(y_test, y_pred))
-
-    # Evaluate each model
         evaluate_model("Random Forest", y_test, rf_pred)
         evaluate_model("Decision Tree", y_test, dt_pred)
         evaluate_model("Logistic Regression", y_test, lr_pred)
