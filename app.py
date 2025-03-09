@@ -114,40 +114,36 @@ if section == "Model Building":
 if section == "Model Evaluation":
     st.title("Model Evaluation")
 
-   def evaluate_model(model_name, y_test, y_pred):
+    # Define the function to evaluate the models
+    def evaluate_model(model_name, y_test, y_pred):
         st.write(f"### {model_name} Model Evaluation")
         
         # Display accuracy
-       st.write(f"**Accuracy:** {accuracy_score(y_test, y_pred):.4f}")
+        st.write(f"**Accuracy:** {accuracy_score(y_test, y_pred):.4f}")
         
         # Classification report
-       st.write("**Classification Report:**")
-       st.text(classification_report(y_test, y_pred))
-       evaluate_model("Random Forest", y_test, rf_pred)
-       evaluate_model("Decision Tree", y_test, dt_pred)
-       evaluate_model("Logistic Regression", y_test, lr_pred)
-       evaluate_model("SVM", y_test, svm_pred)
+        st.write("**Classification Report:**")
+        st.text(classification_report(y_test, y_pred))
+        
+        
+
+    # Ensure that the predictions are available for each model
+    evaluate_model("Random Forest", y_test, rf_pred)
+    evaluate_model("Decision Tree", y_test, dt_pred)
+    evaluate_model("Logistic Regression", y_test, lr_pred)
+    evaluate_model("SVM", y_test, svm_pred)
 
     # Save the best model (Random Forest in this case)
-        joblib.dump(rf_model, 'best_bankruptcy_model.pkl')
-        joblib.dump(scaler, 'scaler.pkl')
+    joblib.dump(rf_model, 'best_bankruptcy_model.pkl')
+    joblib.dump(scaler, 'scaler.pkl')
+
 
 if section == "Confusion Matrix":
-    st.title("Confusion Matrix")
-
-    # Confusion matrices for each model
-    models = {
-        "Random Forest": rf_pred,
-        "Decision Tree": dt_pred,
-        "Logistic Regression": lr_pred,
-        "SVM": svm_pred
-    }
-
-    for model_name, y_pred in models.items():
+    # Confusion Matrix
+        st.write("**Confusion Matrix:**")
         cm = confusion_matrix(y_test, y_pred)
-        st.write(f"### Confusion Matrix for {model_name}")
         st.text(cm)
-
+        
         # Visualize confusion matrix
         fig, ax = plt.subplots(figsize=(6, 5))
         sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=['Non-Bankruptcy', 'Bankruptcy'], yticklabels=['Non-Bankruptcy', 'Bankruptcy'])
