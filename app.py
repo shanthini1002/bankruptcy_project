@@ -214,6 +214,10 @@ if section == "Confusion Matrix":
     st.pyplot()
 
 if section == "Model Comparison":
+    y_pred1 = rf_model.predict(X_test)
+    y_pred2 = dt_model.predict(X_test)
+    y_pred3 = lr_model.predict(X_test)
+    y_pred4 = svm_model.predict(X_test)
     # Calculate accuracy for each model
     accuracy1 = accuracy_score(y_test, y_pred1)
     accuracy2 = accuracy_score(y_test, y_pred2)
