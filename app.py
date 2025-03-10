@@ -112,48 +112,39 @@ if section == "Model Building":
     st.write("Model training complete!")
 
 def evaluate_model(model_name, y_true, y_pred):
-     st.write(f"### {model_name} Model Evaluation")
-     st.write(f"**Accuracy:** {accuracy_score(y_true, y_pred):.4f}")
-     st.write("**Classification Report:**")
-     st.text(classification_report(y_true, y_pred))
-     st.write("**Confusion Matrix:**")
-     st.text(confusion_matrix(y_true, y_pred))
+    st.write(f"### {model_name} Model Evaluation")
+    st.write(f"**Accuracy:** {accuracy_score(y_true, y_pred):.4f}")
+    st.write("**Classification Report:**")
+    st.text(classification_report(y_true, y_pred))
+    st.write("**Confusion Matrix:**")
+    st.text(confusion_matrix(y_true, y_pred))
     
 if section == "Model Evaluation":
-       st.title("Model Evaluation")
-
-
-        evaluate_model("Random Forest", y_test, rf_pred)
-        evaluate_model("Decision Tree", y_test, dt_pred)
-        evaluate_model("Logistic Regression", y_test, lr_pred)
-        evaluate_model("SVM", y_test, svm_pred)
-
-        # Save the best model (Random Forest in this case)
-        joblib.dump(rf_model, 'best_bankruptcy_model.pkl')
-        joblib.dump(scaler, 'scaler.pkl')
-
-        st.success("Best model and scaler saved successfully!")
-
-
-
-
-
-
+    st.title("Model Evaluation")
+    evaluate_model("Random Forest", y_test, rf_pred)
+    evaluate_model("Decision Tree", y_test, dt_pred)
+    evaluate_model("Logistic Regression", y_test, lr_pred)
+    evaluate_model("SVM", y_test, svm_pred)
+    # Save the best model (Random Forest in this case)
+    joblib.dump(rf_model, 'best_bankruptcy_model.pkl')
+    joblib.dump(scaler, 'scaler.pkl')
+    st.success("Best model and scaler saved successfully!")
 
 
 if section == "Confusion Matrix":
+    
     # Confusion Matrix
-        st.write("**Confusion Matrix:**")
-        cm = confusion_matrix(y_test, y_pred)
-        st.text(cm)
-        
-        # Visualize confusion matrix
-        fig, ax = plt.subplots(figsize=(6, 5))
-        sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=['Non-Bankruptcy', 'Bankruptcy'], yticklabels=['Non-Bankruptcy', 'Bankruptcy'])
-        plt.xlabel('Predicted')
-        plt.ylabel('True')
-        plt.title(f'Confusion Matrix for {model_name}')
-        st.pyplot(fig)
+    st.write("**Confusion Matrix:**")
+    cm = confusion_matrix(y_test, y_pred)
+    st.text(cm)   
+     # Visualize confusion matrix
+    fig, ax = plt.subplots(figsize=(6, 5))
+    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=['Non-Bankruptcy', 'Bankruptcy'], yticklabels=['Non-Bankruptcy', 'Bankruptcy'])
+    plt.xlabel('Predicted')
+    plt.ylabel('True')
+    plt.title(f'Confusion Matrix for {model_name}')
+    st.pyplot(fig)
+    
 
 if section == "Prediction App":
     st.title("Bankruptcy Prediction App")
