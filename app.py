@@ -15,7 +15,7 @@ from sklearn.preprocessing import StandardScaler
 
 st.sidebar.title("Navigation")
 section = st.sidebar.radio("Go to", [
-    "Preview Data", "EDA & Visualization", "Model Building", "Model Evaluation", "Confusion Matrix", "Prediction App"
+    "Preview Data", "EDA & Visualization", "Model Building & Model Evaluation", "Confusion Matrix", "Prediction App"
 ])
 
 st.title("Upload an Excel File")
@@ -79,7 +79,7 @@ if section == "EDA & Visualization":
     sns.heatmap(data.corr(), annot=True, cmap='coolwarm', fmt='.2f')
     st.pyplot()
 
-if section == "Model Building":
+if section == "Model Building & Model Evaluation:
     st.title("Model Building")
     X = data.drop(columns=['class'])  # Features
     y = data['class']  # Target variable
@@ -112,7 +112,7 @@ if section == "Model Building":
     svm_pred = svm_model.predict(X_test_scaled)
     st.write("Model training complete!")
 
-    st.write(y_test)
+    
 def evaluate_model(model_name, y_true, y_pred):
     st.write(y_test)
     st.write(f"### {model_name} Model Evaluation")
@@ -121,10 +121,7 @@ def evaluate_model(model_name, y_true, y_pred):
     st.text(classification_report(y_true, y_pred))
     st.write("**Confusion Matrix:**")
     st.text(confusion_matrix(y_true, y_pred))
-    
-if section == "Model Evaluation":
     st.title("Model Evaluation")
-    st.write(y_test)
     evaluate_model("Random Forest", y_test, rf_pred)
     evaluate_model("Decision Tree", y_test, dt_pred)
     evaluate_model("Logistic Regression", y_test, lr_pred)
