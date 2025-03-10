@@ -124,7 +124,7 @@ if section == "Model Building":
     
 if section == "Model Evaluation":
     global y_train, y_test;  
-     y_train, y_test = train_test_split( test_size=0.2, random_state=42)
+    y_train, y_test = train_test_split( test_size=0.2, random_state=42)
     st.title("Model Evaluation")
     evaluate_model("Random Forest", y_test, rf_pred)
     evaluate_model("Decision Tree", y_test, dt_pred)
