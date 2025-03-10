@@ -79,7 +79,7 @@ if section == "EDA & Visualization":
     sns.heatmap(data.corr(), annot=True, cmap='coolwarm', fmt='.2f')
     st.pyplot()
 
-if section == "Model Building & Model Evaluation:
+if section == "Model Building & Model Evaluation":
     st.title("Model Building")
     X = data.drop(columns=['class'])  # Features
     y = data['class']  # Target variable
