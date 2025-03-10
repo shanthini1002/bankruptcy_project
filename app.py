@@ -12,12 +12,6 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from sklearn.preprocessing import StandardScaler
-def evaluate_model(model_name, y_true, y_pred):
-    st.write(f"### {model_name} Model Evaluation")
-    st.write(f"**Accuracy:** {accuracy_score(y_true, y_pred):.4f}")
-    st.write("**Classification Report:**")
-    st.text(classification_report(y_true, y_pred))
-    
 
 st.sidebar.title("Navigation")
 section = st.sidebar.radio("Go to", [
@@ -56,6 +50,13 @@ if uploaded_file is not None:
     dt_pred = dt_model.predict(X_test_scaled)
     lr_pred = lr_model.predict(X_test_scaled)
     svm_pred = svm_model.predict(X_test_scaled)
+def evaluate_model(model_name, y_true, y_pred):
+    st.write(f"### {model_name} Model Evaluation")
+    st.write(f"**Accuracy:** {accuracy_score(y_true, y_pred):.4f}")
+    st.write("**Classification Report:**")
+    st.text(classification_report(y_true, y_pred))
+    
+
    
 
 if section == "Preview Data":
