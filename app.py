@@ -111,7 +111,7 @@ if section == "Model Building":
     svm_pred = svm_model.predict(X_test_scaled)
     st.write("Model training complete!")
 
-st.write(y_test)
+    st.write(y_test)
 def evaluate_model(model_name, y_true, y_pred):
     st.write(y_test)
     st.write(f"### {model_name} Model Evaluation")
