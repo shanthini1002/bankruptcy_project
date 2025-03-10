@@ -95,7 +95,7 @@ if section == "Model Building":
     # Split the data into training and testing sets (80% training, 20% testing)
     
     global X_train, X_test;
-    X_train, X_test = train_test_split(X, y)
+    X_train, X_test,y_train, = train_test_split(X, y, test_size=0.2)
     
 
     # Scaling the features
@@ -110,10 +110,10 @@ if section == "Model Building":
     svm_model = SVC(random_state=42)
 
     # Training the models
-    rf_model.fit(X_train_scaled, test_size=0.2)
-    dt_model.fit(X_train_scaled, test_size=0.2)
-    lr_model.fit(X_train_scaled, test_size=0.2)
-    svm_model.fit(X_train_scaled, test_size=0.2)
+    rf_model.fit(X_train_scaled, y_train)
+    dt_model.fit(X_train_scaled, y_train)
+    lr_model.fit(X_train_scaled, y_train)
+    svm_model.fit(X_train_scaled, y_train)
     # Predictions
     rf_pred = rf_model.predict(X_test_scaled)
     dt_pred = dt_model.predict(X_test_scaled)
@@ -123,10 +123,9 @@ if section == "Model Building":
    
     
 if section == "Model Evaluation":
-    global y_train, y_test;  
-    y_train, y_test = train_test_split( test_size=0.2, random_state=42)
+    y_test = train_test_split(random_state=42)
     st.title("Model Evaluation")
-    evaluate_model("Random Forest", random_state=42, rf_pred)
+    evaluate_model("Random Forest", y_test, rf_pred)
     evaluate_model("Decision Tree", y_test, dt_pred)
     evaluate_model("Logistic Regression", y_test, lr_pred)
     evaluate_model("SVM", y_test, svm_pred)
