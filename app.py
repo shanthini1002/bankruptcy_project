@@ -17,8 +17,7 @@ def evaluate_model(model_name, y_true, y_pred):
     st.write(f"**Accuracy:** {accuracy_score(y_true, y_pred):.4f}")
     st.write("**Classification Report:**")
     st.text(classification_report(y_true, y_pred))
-    st.write("**Confusion Matrix:**")
-    st.text(confusion_matrix(y_true, y_pred))
+    
 
 st.sidebar.title("Navigation")
 section = st.sidebar.radio("Go to", [
@@ -156,8 +155,7 @@ if section == "Confusion Matrix":
     
     # Confusion Matrix
     st.write("**Confusion Matrix:**")
-    cm = confusion_matrix(y_test, y_pred)
-    st.text(cm)   
+    st.text(confusion_matrix(y_true, y_pred))
      # Visualize confusion matrix
     fig, ax = plt.subplots(figsize=(6, 5))
     sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=['Non-Bankruptcy', 'Bankruptcy'], yticklabels=['Non-Bankruptcy', 'Bankruptcy'])
