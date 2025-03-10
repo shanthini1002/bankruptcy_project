@@ -12,7 +12,6 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from sklearn.preprocessing import StandardScaler
-
 def evaluate_model(model_name, y_true, y_pred):
     st.write(y_test)
     st.write(f"### {model_name} Model Evaluation")
@@ -34,6 +33,11 @@ uploaded_file = st.file_uploader("Choose an Excel file", type=["xlsx", "xls"])
 if uploaded_file is not None:
     data = pd.read_excel(uploaded_file, engine="openpyxl")
     data.columns = data.columns.str.strip()  # Clean column names by stripping extra spaces
+    X = data.drop(columns=['class'])  # Features
+    y = data['class']  # Target variable
+    # Split the data into training and testing sets (80% training, 20% testing)
+    global X_train, X_test;
+    X_train, X_test,y_train,y_test = train_test_split(X, y, test_size=0.2,random_state=42)
 
 if section == "Preview Data":
     st.write("### Preview of Uploaded Dataset")
@@ -88,14 +92,9 @@ if section == "EDA & Visualization":
     sns.heatmap(data.corr(), annot=True, cmap='coolwarm', fmt='.2f')
     st.pyplot()
 
+    
 if section == "Model Building":
     st.title("Model Building")
-    X = data.drop(columns=['class'])  # Features
-    y = data['class']  # Target variable
-    # Split the data into training and testing sets (80% training, 20% testing)
-    
-    global X_train, X_test;
-    X_train, X_test,y_train = train_test_split(X, y, test_size=0.2)
     
 
     # Scaling the features
@@ -123,7 +122,6 @@ if section == "Model Building":
    
     
 if section == "Model Evaluation":
-    y_test = train_test_split(random_state=42)
     st.title("Model Evaluation")
     evaluate_model("Random Forest", y_test, rf_pred)
     evaluate_model("Decision Tree", y_test, dt_pred)
