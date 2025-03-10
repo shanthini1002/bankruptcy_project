@@ -113,16 +113,17 @@ if section == "Model Building":
     dt_model.fit(X_train_scaled, y_train)
     lr_model.fit(X_train_scaled, y_train)
     svm_model.fit(X_train_scaled, y_train)
-    # Predictions
-    rf_pred = rf_model.predict(X_test_scaled)
-    dt_pred = dt_model.predict(X_test_scaled)
-    lr_pred = lr_model.predict(X_test_scaled)
-    svm_pred = svm_model.predict(X_test_scaled)
+   
     st.write("Model training complete!")
    
     
 if section == "Model Evaluation":
     st.title("Model Evaluation")
+     # Predictions
+    rf_pred = rf_model.predict(X_test_scaled)
+    dt_pred = dt_model.predict(X_test_scaled)
+    lr_pred = lr_model.predict(X_test_scaled)
+    svm_pred = svm_model.predict(X_test_scaled)
     evaluate_model("Random Forest", y_test, rf_pred)
     evaluate_model("Decision Tree", y_test, dt_pred)
     evaluate_model("Logistic Regression", y_test, lr_pred)
