@@ -13,7 +13,7 @@ from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from sklearn.preprocessing import StandardScaler
 
-    
+global X_train, X_test, y_train, y_test;  
 st.sidebar.title("Navigation")
 section = st.sidebar.radio("Go to", [
     "Preview Data", "EDA & Visualization", "Model Building", "Model Evaluation", "Confusion Matrix", "Prediction App"
@@ -112,18 +112,15 @@ if section == "Model Building":
     st.write("Model training complete!")
 
 def evaluate_model(model_name, y_true, y_pred):
+     st.write(f"### {model_name} Model Evaluation")
+     st.write(f"**Accuracy:** {accuracy_score(y_true, y_pred):.4f}")
+     st.write("**Classification Report:**")
+     st.text(classification_report(y_true, y_pred))
+     st.write("**Confusion Matrix:**")
+     st.text(confusion_matrix(y_true, y_pred))
     
-
-    if section == "Model Evaluation":
+if section == "Model Evaluation":
        st.title("Model Evaluation")
-       st.write(f"### {model_name} Model Evaluation")
-       st.write(f"**Accuracy:** {accuracy_score(y_true, y_pred):.4f}")
-       st.write("**Classification Report:**")
-       st.text(classification_report(y_true, y_pred))
-       st.write("**Confusion Matrix:**")
-       st.text(confusion_matrix(y_true, y_pred))
-
-    # Ensure that the required variables exist
     try:
         # Call the function properly aligned
         evaluate_model("Random Forest", y_test, rf_pred)
