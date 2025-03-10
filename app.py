@@ -24,7 +24,7 @@ def evaluate_model(model_name, y_true, y_pred):
 
 st.sidebar.title("Navigation")
 section = st.sidebar.radio("Go to", [
-    "Preview Data", "EDA & Visualization", "Model Building & Model Evaluation", "Confusion Matrix", "Prediction App"
+    "Preview Data", "EDA & Visualization", "Model Building", "Model Evaluation", "Confusion Matrix", "Prediction App"
 ])
 
 st.title("Upload an Excel File")
@@ -88,7 +88,7 @@ if section == "EDA & Visualization":
     sns.heatmap(data.corr(), annot=True, cmap='coolwarm', fmt='.2f')
     st.pyplot()
 
-if section == "Model Building & Model Evaluation":
+if section == "Model Building":
     st.title("Model Building")
     X = data.drop(columns=['class'])  # Features
     y = data['class']  # Target variable
@@ -120,6 +120,9 @@ if section == "Model Building & Model Evaluation":
     lr_pred = lr_model.predict(X_test_scaled)
     svm_pred = svm_model.predict(X_test_scaled)
     st.write("Model training complete!")
+   
+    
+if section == "Model Evaluation":
     st.title("Model Evaluation")
     evaluate_model("Random Forest", y_test, rf_pred)
     evaluate_model("Decision Tree", y_test, dt_pred)
@@ -130,9 +133,6 @@ if section == "Model Building & Model Evaluation":
     joblib.dump(scaler, 'scaler.pkl')
     st.success("Best model and scaler saved successfully!")
 
-    
-
-   
 
 
 if section == "Confusion Matrix":
