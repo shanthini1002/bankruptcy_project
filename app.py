@@ -29,7 +29,7 @@ section = st.sidebar.radio("Go to", [
 st.title("Upload an Excel File")
 uploaded_file = st.file_uploader("Choose an Excel file", type=["xlsx", "xls"])
 
-def evaluate_model(model_name, y_true, y_pred):
+def evaluate_model1(model_name, y_true, y_pred):
     st.write(f"### {model_name} Model Evaluation")
     st.write(f"**Accuracy:** {accuracy_score(y_true, y_pred):.4f}")
     st.write("**Classification Report:**")
@@ -124,6 +124,15 @@ if section == "Model Building":
     lr_pred = lr_model.predict(X_test_scaled)
     svm_pred = svm_model.predict(X_test_scaled)
     st.write("Model training complete!")
+
+def evaluate_model(model_name, y_true, y_pred):
+    st.write(f"### {model_name} Model Evaluation")
+    st.write(f"**Accuracy:** {accuracy_score(y_true, y_pred):.4f}")
+    st.write("**Classification Report:**")
+    st.text(classification_report(y_true, y_pred))
+    st.write("**Confusion Matrix:**")
+    st.text(confusion_matrix(y_true, y_pred))
+
 
 if section == "Model Evaluation":
     st.title("Model Evaluation")
