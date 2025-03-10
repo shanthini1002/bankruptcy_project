@@ -95,7 +95,7 @@ if section == "Model Building":
     # Split the data into training and testing sets (80% training, 20% testing)
     
     global X_train, X_test;
-    X_train, X_test,y_train, = train_test_split(X, y, test_size=0.2)
+    X_train, X_test,y_train = train_test_split(X, y, test_size=0.2)
     
 
     # Scaling the features
