@@ -13,13 +13,8 @@ from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from sklearn.preprocessing import StandardScaler
 
-# Sidebar navigation
-# st.sidebar.title("Navigation")
-# section = st.sidebar.radio("Go to", [
-#     "Preview Data", "EDA & Visualization", "Model Building", "Model Evaluation", "Confusion Matrix", "Prediction App"
-# ])
-
-
+# Split the data into training and testing sets (80% training, 20% testing)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
         
 st.sidebar.title("Navigation")
 section = st.sidebar.radio("Go to", [
@@ -29,13 +24,6 @@ section = st.sidebar.radio("Go to", [
 st.title("Upload an Excel File")
 uploaded_file = st.file_uploader("Choose an Excel file", type=["xlsx", "xls"])
 
-def evaluate_model1(model_name, y_true, y_pred):
-    st.write(f"### {model_name} Model Evaluation")
-    st.write(f"**Accuracy:** {accuracy_score(y_true, y_pred):.4f}")
-    st.write("**Classification Report:**")
-    st.text(classification_report(y_true, y_pred))
-    st.write("**Confusion Matrix:**")
-    st.text(confusion_matrix(y_true, y_pred))
 
 if uploaded_file is not None:
     data = pd.read_excel(uploaded_file, engine="openpyxl")
@@ -99,8 +87,6 @@ if section == "Model Building":
     X = data.drop(columns=['class'])  # Features
     y = data['class']  # Target variable
 
-    # Split the data into training and testing sets (80% training, 20% testing)
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
     # Scaling the features
     scaler = StandardScaler()
