@@ -112,6 +112,10 @@ if section == "Model Building":
     st.write("Model training complete!")
 
 def evaluate_model(model_name, y_true, y_pred):
+    
+
+if section == "Model Evaluation":
+    st.title("Model Evaluation")
     st.write(f"### {model_name} Model Evaluation")
     st.write(f"**Accuracy:** {accuracy_score(y_true, y_pred):.4f}")
     st.write("**Classification Report:**")
@@ -119,12 +123,6 @@ def evaluate_model(model_name, y_true, y_pred):
     st.write("**Confusion Matrix:**")
     st.text(confusion_matrix(y_true, y_pred))
 
-
-if section == "Model Evaluation":
-    st.title("Model Evaluation")
-    # Split the data into training and testing sets (80% training, 20% testing)
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-    
     # Ensure that the required variables exist
     try:
         # Call the function properly aligned
