@@ -156,23 +156,7 @@ if section == "Model Evaluation":
 
 
 
-if section == "Model Evaluation1":
-    st.title("Model Evaluation")
 
-    # Define the function to evaluate the models
-
-
-    
-
-    # Ensure that the predictions are available for each model
-        evaluate_model("Random Forest", y_test, rf_pred)
-        evaluate_model("Decision Tree", y_test, dt_pred)
-        evaluate_model("Logistic Regression", y_test, lr_pred)
-        evaluate_model("SVM", y_test, svm_pred)
-
-    # Save the best model (Random Forest in this case)
-        joblib.dump(rf_model, 'best_bankruptcy_model.pkl')
-        joblib.dump(scaler, 'scaler.pkl')
 
 
 if section == "Confusion Matrix":
