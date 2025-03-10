@@ -94,8 +94,8 @@ if section == "Model Building":
     y = data['class']  # Target variable
     # Split the data into training and testing sets (80% training, 20% testing)
     
-    global X_train, X_test, y_train, y_test;  
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    global X_train, X_test;
+    X_train, X_test = train_test_split(X, y)
     
 
     # Scaling the features
@@ -123,6 +123,8 @@ if section == "Model Building":
    
     
 if section == "Model Evaluation":
+    global y_train, y_test;  
+     y_train, y_test = train_test_split( test_size=0.2, random_state=42)
     st.title("Model Evaluation")
     evaluate_model("Random Forest", y_test, rf_pred)
     evaluate_model("Decision Tree", y_test, dt_pred)
