@@ -135,6 +135,11 @@ if section == "Model Evaluation":
     dt_model.fit(X_train_scaled, y_train)
     lr_model.fit(X_train_scaled, y_train)
     svm_model.fit(X_train_scaled, y_train)
+    # Predictions
+    rf_pred = rf_model.predict(X_test_scaled)
+    dt_pred = dt_model.predict(X_test_scaled)
+    lr_pred = lr_model.predict(X_test_scaled)
+    svm_pred = svm_model.predict(X_test_scaled)
    
     evaluate_model("Random Forest", y_test, rf_pred)
     evaluate_model("Decision Tree", y_test, dt_pred)
