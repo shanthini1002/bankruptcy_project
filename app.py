@@ -128,14 +128,14 @@ if section == "Model Evaluation":
     
 
     # Ensure that the predictions are available for each model
-       evaluate_model("Random Forest", y_test, rf_pred)
-       evaluate_model("Decision Tree", y_test, dt_pred)
-       evaluate_model("Logistic Regression", y_test, lr_pred)
-       evaluate_model("SVM", y_test, svm_pred)
+        evaluate_model("Random Forest", y_test, rf_pred)
+        evaluate_model("Decision Tree", y_test, dt_pred)
+        evaluate_model("Logistic Regression", y_test, lr_pred)
+        evaluate_model("SVM", y_test, svm_pred)
 
     # Save the best model (Random Forest in this case)
-       joblib.dump(rf_model, 'best_bankruptcy_model.pkl')
-       joblib.dump(scaler, 'scaler.pkl')
+        joblib.dump(rf_model, 'best_bankruptcy_model.pkl')
+        joblib.dump(scaler, 'scaler.pkl')
 
 
 if section == "Confusion Matrix":
