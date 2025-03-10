@@ -236,7 +236,7 @@ if section == "Model Comparison":
     plt.title('Comparison of Model Accuracies')
 
 # Show the plot
-   st.pyplot()
+    st.pyplot()
 
 
      
