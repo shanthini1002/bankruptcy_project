@@ -14,6 +14,11 @@ from sklearn.metrics import accuracy_score, classification_report, confusion_mat
 from sklearn.preprocessing import StandardScaler
 
 # Sidebar navigation
+# st.sidebar.title("Navigation")
+# section = st.sidebar.radio("Go to", [
+#     "Preview Data", "EDA & Visualization", "Model Building", "Model Evaluation", "Confusion Matrix", "Prediction App"
+# ])
+
 st.sidebar.title("Navigation")
 section = st.sidebar.radio("Go to", [
     "Preview Data", "EDA & Visualization", "Model Building", "Model Evaluation", "Confusion Matrix", "Prediction App"
@@ -29,7 +34,7 @@ if section == "Preview Data":
     st.write("### Preview of Uploaded Dataset")
     st.dataframe(data)
 
-if section == "EDA & Visualization":
+elif section == "EDA & Visualization":
     st.title("Exploratory Data Analysis")
     st.write("### Data Info")
     st.write(data.info())
@@ -78,7 +83,7 @@ if section == "EDA & Visualization":
     sns.heatmap(data.corr(), annot=True, cmap='coolwarm', fmt='.2f')
     st.pyplot()
 
-if section == "Model Building":
+elif section == "Model Building":
     st.title("Model Building")
     X = data.drop(columns=['class'])  # Features
     y = data['class']  # Target variable
@@ -113,7 +118,7 @@ if section == "Model Building":
     
     st.write("Model training complete!")
 
-if section == "Model Evaluation":
+elif section == "Model Evaluation":
     st.title("Model Evaluation")
 
     # Define the function to evaluate the models
@@ -138,7 +143,7 @@ if section == "Model Evaluation":
         joblib.dump(scaler, 'scaler.pkl')
 
 
-if section == "Confusion Matrix":
+elif section == "Confusion Matrix":
     # Confusion Matrix
         st.write("**Confusion Matrix:**")
         cm = confusion_matrix(y_test, y_pred)
@@ -152,7 +157,7 @@ if section == "Confusion Matrix":
         plt.title(f'Confusion Matrix for {model_name}')
         st.pyplot(fig)
 
-if section == "Prediction App":
+elif section == "Prediction App":
     st.title("Bankruptcy Prediction App")
 
     # Load the best model and scaler
