@@ -45,7 +45,7 @@ if section == "Preview Data":
     st.write("### Preview of Uploaded Dataset")
     st.dataframe(data)
 
-elif section == "EDA & Visualization":
+if section == "EDA & Visualization":
     st.title("Exploratory Data Analysis")
     st.write("### Data Info")
     st.write(data.info())
@@ -94,7 +94,7 @@ elif section == "EDA & Visualization":
     sns.heatmap(data.corr(), annot=True, cmap='coolwarm', fmt='.2f')
     st.pyplot()
 
-elif section == "Model Building":
+if section == "Model Building":
     st.title("Model Building")
     X = data.drop(columns=['class'])  # Features
     y = data['class']  # Target variable
@@ -123,13 +123,31 @@ elif section == "Model Building":
     dt_pred = dt_model.predict(X_test_scaled)
     lr_pred = lr_model.predict(X_test_scaled)
     svm_pred = svm_model.predict(X_test_scaled)
-
-        
-
-    
     st.write("Model training complete!")
 
-elif section == "Model Evaluation":
+if section == "Model Evaluation":
+    st.title("Model Evaluation")
+
+    # Ensure that the required variables exist
+    try:
+        # Call the function properly aligned
+        evaluate_model("Random Forest", y_test, rf_pred)
+        evaluate_model("Decision Tree", y_test, dt_pred)
+        evaluate_model("Logistic Regression", y_test, lr_pred)
+        evaluate_model("SVM", y_test, svm_pred)
+
+        # Save the best model (Random Forest in this case)
+        joblib.dump(rf_model, 'best_bankruptcy_model.pkl')
+        joblib.dump(scaler, 'scaler.pkl')
+
+        st.success("Best model and scaler saved successfully!")
+
+    except NameError as e:
+        st.error(f"Error: {e}. Please ensure all required variables are defined.")
+
+
+
+if section == "Model Evaluation1":
     st.title("Model Evaluation")
 
     # Define the function to evaluate the models
@@ -148,7 +166,7 @@ elif section == "Model Evaluation":
         joblib.dump(scaler, 'scaler.pkl')
 
 
-elif section == "Confusion Matrix":
+if section == "Confusion Matrix":
     # Confusion Matrix
         st.write("**Confusion Matrix:**")
         cm = confusion_matrix(y_test, y_pred)
@@ -162,7 +180,7 @@ elif section == "Confusion Matrix":
         plt.title(f'Confusion Matrix for {model_name}')
         st.pyplot(fig)
 
-elif section == "Prediction App":
+if section == "Prediction App":
     st.title("Bankruptcy Prediction App")
 
     # Load the best model and scaler
