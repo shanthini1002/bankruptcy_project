@@ -33,6 +33,7 @@ if uploaded_file is not None:
     scaler = StandardScaler()
     X_train_scaled = scaler.fit_transform(X_train)
     X_test_scaled = scaler.transform(X_test)
+    y_pred = model.predict(X_test)
 
     # Initialize models
     rf_model = RandomForestClassifier(random_state=42)
