@@ -155,7 +155,7 @@ if section == "Confusion Matrix":
     
     # Confusion Matrix
     st.write("**Confusion Matrix:**")
-    st.text(confusion_matrix(y_true, y_pred))
+    st.text(confusion_matrix(y_test, y_pred))
      # Visualize confusion matrix
     fig, ax = plt.subplots(figsize=(6, 5))
     sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=['Non-Bankruptcy', 'Bankruptcy'], yticklabels=['Non-Bankruptcy', 'Bankruptcy'])
