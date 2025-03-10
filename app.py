@@ -15,7 +15,7 @@ from sklearn.preprocessing import StandardScaler
 
 st.sidebar.title("Navigation")
 section = st.sidebar.radio("Go to", [
-    "Preview Data", "EDA & Visualization", "Model Building", "Model Evaluation", "Confusion Matrix", "Prediction App"
+    "Preview Data", "EDA & Visualization", "Model Building", "Model Evaluation", "Confusion Matrix", "Model Comparison","Prediction App"
 ])
 
 st.title("Upload an Excel File")
@@ -163,18 +163,80 @@ if section == "Confusion Matrix":
     y_pred2 = dt_model.predict(X_test)
     y_pred3 = lr_model.predict(X_test)
     y_pred4 = svm_model.predict(X_test)
+    cm1 = confusion_matrix(y_test, y_pred1)
+    cm2 = confusion_matrix(y_test, y_pred2)
+    cm3 = confusion_matrix(y_test, y_pred3)
+    cm4 = confusion_matrix(y_test, y_pred4)
+    st.write("Confusion Matrix for Random_forest_Model:")
+    st.write(cm1)
 
-    st.write("Confusion Matrix for Model 1:")
-    st.write(confusion_matrix(y_test, y_pred1))
+    st.write("Confusion Matrix for Decision_tree_Model:")
+    st.write(cm2)
 
-    st.write("Confusion Matrix for Model 2:")
-    st.write(confusion_matrix(y_test, y_pred2))
+    st.write("Confusion Matrix for Logistic_regression_Model:")
+    st.write(cm3)
 
-    st.write("Confusion Matrix for Model 3:")
-    st.write(confusion_matrix(y_test, y_pred3))
+    st.write("Confusion Matrix for SVM_Model:")
+    st.write(cm4)
+    # Create confusion matrices
+    
+    # Set up the figure for subplots
+    fig, axes = plt.subplots(2, 2, figsize=(14, 12))  # 2x2 grid, adjust size as needed
 
-    st.write("Confusion Matrix for Model 4:")
-    st.write(confusion_matrix(y_test, y_pred4))
+    # Plot Model 1 confusion matrix
+    sns.heatmap(cm1, annot=True, fmt='d', cmap='Blues', ax=axes[0, 0], cbar=False)
+    axes[0, 0].set_title("Random_forest_Model: Confusion Matrix")
+    axes[0, 0].set_xlabel('Predicted Labels')
+    axes[0, 0].set_ylabel('True Labels')
+
+    # Plot Model 2 confusion matrix
+    sns.heatmap(cm2, annot=True, fmt='d', cmap='Blues', ax=axes[0, 1], cbar=False)
+    axes[0, 1].set_title("Decision_tree_Model: Confusion Matrix")
+    axes[0, 1].set_xlabel('Predicted Labels')
+    axes[0, 1].set_ylabel('True Labels')
+
+    # Plot Model 3 confusion matrix
+    sns.heatmap(cm3, annot=True, fmt='d', cmap='Blues', ax=axes[1, 0], cbar=False)
+    axes[1, 0].set_title("Logistic_regression_Model: Confusion Matrix")
+    axes[1, 0].set_xlabel('Predicted Labels')
+    axes[1, 0].set_ylabel('True Labels')
+
+    # Plot Model 4 confusion matrix
+    sns.heatmap(cm4, annot=True, fmt='d', cmap='Blues', ax=axes[1, 1], cbar=False)
+    axes[1, 1].set_title("SVM_Model: Confusion Matrix")
+    axes[1, 1].set_xlabel('Predicted Labels')
+    axes[1, 1].set_ylabel('True Labels')
+
+    # Adjust layout to avoid overlapping elements
+    plt.tight_layout()
+
+    # Show the plot
+    st.pyplot()
+
+if section == "Model Comparison":
+    # Calculate accuracy for each model
+    accuracy1 = accuracy_score(y_test, y_pred1)
+    accuracy2 = accuracy_score(y_test, y_pred2)
+    accuracy3 = accuracy_score(y_test, y_pred3)
+    accuracy4 = accuracy_score(y_test, y_pred4)
+
+# Store accuracy values in a list
+    accuracies = [accuracy1, accuracy2, accuracy3, accuracy4]
+
+# Model names (optional, for labels in the bar plot)
+    model_names = ['Random_forest_Model', 'Decision_tree_Model', 'Logistic_regression_Model', 'SVM_Model']
+
+# Create a bar plot
+    plt.figure(figsize=(8, 6))
+    plt.bar(model_names, accuracies, color=['blue', 'green', 'orange', 'red'])
+
+# Add labels and title
+    plt.xlabel('Model')
+    plt.ylabel('Accuracy')
+    plt.title('Comparison of Model Accuracies')
+
+# Show the plot
+   st.pyplot()
 
 
      
