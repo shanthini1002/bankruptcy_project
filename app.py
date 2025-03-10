@@ -119,6 +119,18 @@ if section == "Model Building":
     
 if section == "Model Evaluation":
     st.title("Model Evaluation")
+    # Initialize models
+    rf_model = RandomForestClassifier(random_state=42)
+    dt_model = DecisionTreeClassifier(random_state=42)
+    lr_model = LogisticRegression(random_state=42)
+    svm_model = SVC(random_state=42)
+
+    # Training the models
+    rf_model.fit(X_train_scaled, y_train)
+    dt_model.fit(X_train_scaled, y_train)
+    lr_model.fit(X_train_scaled, y_train)
+    svm_model.fit(X_train_scaled, y_train)
+   
      # Predictions
     rf_pred = rf_model.predict(X_test_scaled)
     dt_pred = dt_model.predict(X_test_scaled)
