@@ -111,6 +111,15 @@ if section == "Model Building & Model Evaluation":
     lr_pred = lr_model.predict(X_test_scaled)
     svm_pred = svm_model.predict(X_test_scaled)
     st.write("Model training complete!")
+    st.title("Model Evaluation")
+    evaluate_model("Random Forest", y_test, rf_pred)
+    evaluate_model("Decision Tree", y_test, dt_pred)
+    evaluate_model("Logistic Regression", y_test, lr_pred)
+    evaluate_model("SVM", y_test, svm_pred)
+    # Save the best model (Random Forest in this case)
+    joblib.dump(rf_model, 'best_bankruptcy_model.pkl')
+    joblib.dump(scaler, 'scaler.pkl')
+    st.success("Best model and scaler saved successfully!")
 
     
 def evaluate_model(model_name, y_true, y_pred):
@@ -121,15 +130,7 @@ def evaluate_model(model_name, y_true, y_pred):
     st.text(classification_report(y_true, y_pred))
     st.write("**Confusion Matrix:**")
     st.text(confusion_matrix(y_true, y_pred))
-    st.title("Model Evaluation")
-    evaluate_model("Random Forest", y_test, rf_pred)
-    evaluate_model("Decision Tree", y_test, dt_pred)
-    evaluate_model("Logistic Regression", y_test, lr_pred)
-    evaluate_model("SVM", y_test, svm_pred)
-    # Save the best model (Random Forest in this case)
-    joblib.dump(rf_model, 'best_bankruptcy_model.pkl')
-    joblib.dump(scaler, 'scaler.pkl')
-    st.success("Best model and scaler saved successfully!")
+   
 
 
 if section == "Confusion Matrix":
