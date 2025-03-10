@@ -13,7 +13,6 @@ from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from sklearn.preprocessing import StandardScaler
 def evaluate_model(model_name, y_true, y_pred):
-    st.write(y_test)
     st.write(f"### {model_name} Model Evaluation")
     st.write(f"**Accuracy:** {accuracy_score(y_true, y_pred):.4f}")
     st.write("**Classification Report:**")
