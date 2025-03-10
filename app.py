@@ -121,8 +121,8 @@ def evaluate_model(model_name, y_true, y_pred):
     
 if section == "Model Evaluation":
        st.title("Model Evaluation")
-    try:
-        # Call the function properly aligned
+
+
         evaluate_model("Random Forest", y_test, rf_pred)
         evaluate_model("Decision Tree", y_test, dt_pred)
         evaluate_model("Logistic Regression", y_test, lr_pred)
@@ -134,8 +134,7 @@ if section == "Model Evaluation":
 
         st.success("Best model and scaler saved successfully!")
 
-    except NameError as e:
-        st.error(f"Error: {e}. Please ensure all required variables are defined.")
+
 
 
 
